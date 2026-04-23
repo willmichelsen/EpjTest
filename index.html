@@ -1,0 +1,2473 @@
+﻿<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EPJ - TEST</title>
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --border: #d1d5db;
+      --accent: #991b1b;
+      --accent-2: #7f1d1d;
+      --green: #166534;
+      --green-bg: #dcfce7;
+      --yellow: #854d0e;
+      --yellow-bg: #fef9c3;
+      --orange: #9a3412;
+      --orange-bg: #ffedd5;
+      --red: #991b1b;
+      --red-bg: #fee2e2;
+      --shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.45;
+    }
+
+    .wrap {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+
+    h1, h2, h3 {
+      margin: 0 0 10px;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    .lead {
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    .front-intro {
+      text-align: left;
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .front-note {
+      padding: 12px 14px;
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      background: #f9fafb;
+      text-align: left;
+    }
+
+    .front-note strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 14px;
+    }
+
+    .front-note p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .front {
+      min-height: calc(100vh - 32px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .front-card {
+      width: 100%;
+      max-width: 560px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 26px;
+      box-shadow: var(--shadow);
+      padding: 28px;
+      text-align: center;
+    }
+
+    .front-actions {
+      display: grid;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .front-actions button {
+      width: 100%;
+      padding: 16px;
+      font-size: 17px;
+    }
+
+    .topbar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .status-banner {
+      margin-bottom: 16px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid #fecaca;
+      background: #fef2f2;
+      color: var(--red);
+      font-size: 14px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.85fr;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .left-col, .right-col {
+      display: grid;
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      box-shadow: var(--shadow);
+    }
+
+    .section-title {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .section-title small {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    label.block {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      margin: 12px 0 6px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="datetime-local"],
+    textarea,
+    select {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 11px 12px;
+      font-size: 15px;
+      background: white;
+      color: var(--text);
+    }
+
+    input,
+    textarea,
+    select,
+    button,
+    a {
+      color: var(--text);
+    }
+
+    textarea {
+      min-height: 88px;
+      resize: vertical;
+    }
+
+    .fields-2,
+    .fields-3 {
+      display: grid;
+      gap: 10px;
+    }
+
+    .fields-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .fields-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip {
+      border: 1px solid var(--border);
+      background: white;
+      border-radius: 999px;
+      padding: 9px 12px;
+      font-size: 14px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .chip.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: white;
+    }
+
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    button {
+      border: 0;
+      border-radius: 12px;
+      padding: 11px 14px;
+      font-size: 15px;
+      cursor: pointer;
+      transition: 0.15s ease;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+    }
+
+    .primary {
+      background: var(--accent);
+      color: white;
+    }
+
+    .primary:hover {
+      background: var(--accent-2);
+    }
+
+    .secondary {
+      background: #e5e7eb;
+      color: var(--text);
+    }
+
+    .ghost {
+      background: white;
+      border: 1px solid var(--border);
+    }
+
+    .item {
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      font-size: 14px;
+    }
+
+    .list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .log-entry {
+      padding: 10px 12px;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      background: #fafafa;
+      font-size: 14px;
+    }
+
+    .log-entry strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .divider {
+      height: 1px;
+      background: #e5e7eb;
+      margin: 14px 0;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .lav { color: var(--green); background: var(--green-bg); }
+    .moderat { color: var(--yellow); background: var(--yellow-bg); }
+    .hoy { color: var(--orange); background: var(--orange-bg); }
+    .kritisk { color: var(--red); background: var(--red-bg); }
+
+    .summary-box {
+      white-space: pre-wrap;
+    }
+
+    .status-grid {
+      display: grid;
+      gap: 10px;
+    }
+
+    .status-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px 12px;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      background: #fafafa;
+      font-size: 14px;
+    }
+
+    .status-row strong {
+      font-size: 14px;
+    }
+
+    .section-status {
+      display: inline-flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .section-status::before {
+      content: "";
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: #d1d5db;
+      flex: 0 0 auto;
+    }
+
+    .section-status.done::before {
+      background: #16a34a;
+    }
+
+    .section-status.pending::before {
+      background: #f59e0b;
+    }
+
+    .section-status-label {
+      display: block;
+      font-weight: 600;
+    }
+
+    .section-status-time {
+      display: block;
+      margin-top: 2px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .case-card {
+      cursor: pointer;
+    }
+
+    .case-card:hover {
+      background: #f3f4f6;
+    }
+
+    .case-meta {
+      display: grid;
+      gap: 3px;
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 6px;
+    }
+
+    .case-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .hint {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 4px;
+    }
+
+    .check-row {
+      display: grid;
+      grid-template-columns: 20px 1fr;
+      gap: 12px;
+      align-items: flex-start;
+      text-align: left;
+      margin-top: 14px;
+      padding: 14px;
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      background: #fafafa;
+    }
+
+    .check-row input[type="checkbox"] {
+      margin-top: 3px;
+      transform: scale(1.15);
+    }
+
+    .check-text {
+      display: grid;
+      gap: 10px;
+      font-size: 14px;
+    }
+
+    .check-text p {
+      color: var(--text);
+    }
+
+    .check-text .emphasis {
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.4;
+    }
+
+    .user-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: #f3f4f6;
+      border: 1px solid var(--border);
+      font-size: 14px;
+    }
+
+    .item-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .item-row .meta {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 960px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .fields-2,
+      .fields-3 {
+        grid-template-columns: 1fr;
+      }
+
+      .front-card {
+        padding: 20px;
+      }
+
+      h1 { font-size: 26px; }
+      h2 { font-size: 21px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section id="accessPage" class="front">
+      <div class="front-card">
+        <h1>Før du bruker appen</h1>
+
+        <div class="front-intro">
+          <div class="front-note">
+            <strong>Testversjon</strong>
+            <p>Dette er en testversjon av en frontend-løsning under utvikling.</p>
+          </div>
+          <div class="front-note">
+            <strong>Lokal lagring</strong>
+            <p>Appen har ikke backend eller sentral database. Data lagres bare lokalt i nettleseren på enheten du bruker.</p>
+          </div>
+          <div class="front-note">
+            <strong>Ansvar og avgrensning</strong>
+            <p>Løsningen erstatter ikke klinisk vurdering, beslutningsansvar eller journalføring i godkjent system.</p>
+          </div>
+          <div class="front-note">
+            <strong>Tredjepart</strong>
+            <p>Dette er en tjeneste utviklet av en tredjepart og er ikke utviklet i samarbeid med Røde Kors, Helse Bergen eller andre aktører. All bruk skjer på eget ansvar.</p>
+          </div>
+        </div>
+
+        <div class="check-row">
+          <input id="acknowledgeNoPii" type="checkbox" />
+          <label for="acknowledgeNoPii" class="check-text" style="font-weight:400;">
+            <p>Jeg bekrefter at jeg ikke skal legge inn direkte personidentifiserende opplysninger.</p>
+          </label>
+        </div>
+        <div class="check-row">
+          <input id="acknowledgeClinicalLimit" type="checkbox" />
+          <label for="acknowledgeClinicalLimit" class="check-text" style="font-weight:400;">
+            <p>Jeg bekrefter at jeg forstår at appen ikke gir endelig klinisk vurdering eller diagnose.</p>
+            <p class="emphasis">Det er du som ser pasienten, som har ansvar for de endelige vurderingene.</p>
+          </label>
+        </div>
+        <label class="block" for="loginName" style="text-align:left;">Navn</label>
+        <input id="loginName" type="text" placeholder="Skriv inn navn" />
+        <div class="front-actions">
+          <button class="primary" id="enterAppBtn" disabled>Fortsett til appen</button>
+        </div>
+      </div>
+    </section>
+
+    <div id="topbar" class="topbar hidden">
+      <button class="primary" id="goAssessmentBtn">Vurdering</button>
+      <button class="secondary" id="goCaseLogBtn">Caselogg</button>
+      <div id="currentUserBadge" class="user-badge">Innlogget: -</div>
+      <button class="ghost" id="switchUserBtn">Bytt bruker</button>
+    </div>
+
+    <div id="appError" class="status-banner hidden"></div>
+
+    <section id="assessmentPage" class="hidden">
+      <div class="grid">
+        <div class="left-col">
+          <section class="card">
+            <div class="section-title">
+              <h2>Pasientopplysninger</h2>
+              <small>Grunnlag for case</small>
+            </div>
+
+            <p class="muted" style="margin-bottom:12px;">Siste m&aring;ling brukes i NEWS og GCS. Tidligere m&aring;linger beholdes i loggen slik at du kan f&oslash;lge utviklingen over tid.</p>
+
+            <div class="fields-3">
+              <div>
+                <label class="block" for="caseNummer">Case-nummer</label>
+                <input id="caseNummer" type="text" placeholder="Case 1" />
+              </div>
+              <div>
+                <label class="block" for="tidspunkt">Tidspunkt</label>
+                <input id="tidspunkt" type="datetime-local" />
+                <div class="btn-row" style="margin-top:8px;">
+                  <button class="ghost" id="setCurrentTimeBtn" type="button">Sett tidspunkt nå</button>
+                </div>
+              </div>
+              <div>
+                <label class="block" for="kategori">Kategori</label>
+                <select id="kategori">
+                  <option value="">Velg</option>
+                  <option value="Medisinsk">Medisinsk</option>
+                  <option value="Traume / skade">Traume / skade</option>
+                  <option value="Psykiatri">Psykiatri</option>
+                  <option value="Rus / forgiftning">Rus / forgiftning</option>
+                  <option value="Barn">Barn</option>
+                  <option value="Gynekologi / f&oslash;dsel">Gynekologi / f&oslash;dsel</option>
+                  <option value="Annet">Annet</option>
+                </select>
+              </div>
+              <div>
+                <label class="block" for="kjonn">Kj&oslash;nn</label>
+                <select id="kjonn">
+                  <option value="">Velg</option>
+                  <option value="Mann">Mann</option>
+                  <option value="Kvinne">Kvinne</option>
+                  <option value="Annet / ikke oppgitt">Annet / ikke oppgitt</option>
+                </select>
+              </div>
+              <div>
+                <label class="block" for="fodselsaar">F&oslash;dsels&aring;r</label>
+                <input id="fodselsaar" type="number" min="1900" max="2100" inputmode="numeric" pattern="[0-9]*" />
+              </div>
+              <div>
+                <label class="block" for="alder">Alder</label>
+                <input id="alder" type="text" readonly placeholder="Regnes ut automatisk" />
+              </div>
+            </div>
+
+            <label class="block" for="situasjon">Situasjon / kort beskrivelse</label>
+            <textarea id="situasjon" placeholder="Kort beskrivelse av hendelsen"></textarea>
+          </section>
+
+          <section class="card">
+            <div class="section-title"><h2>A - Airways</h2><small id="A_status" class="section-status pending">Ikke vurdert</small></div>
+            <label class="block">Funn</label>
+            <div class="chips" id="A_funn"></div>
+            <label class="block">Tiltak</label>
+            <div class="chips" id="A_tiltak"></div>
+            <label class="block" for="A_fritekst">Fritekst A</label>
+            <textarea id="A_fritekst" placeholder="Supplerende vurdering av luftveier"></textarea>
+            <div class="divider"></div>
+            <div class="section-title">
+              <h3>Logg A</h3>
+              <small>Luftveier og vurdering</small>
+            </div>
+            <div id="A_measurements" class="list">
+              <div class="item muted">Ingen A-vurdering registrert ennå.</div>
+            </div>
+          </section>
+
+          <section class="card">
+            <div class="section-title"><h2>B - Breathing</h2><small id="B_status" class="section-status pending">Ikke vurdert</small></div>
+            <label class="block">Funn</label>
+            <div class="chips" id="B_funn"></div>
+            <label class="block">Tiltak</label>
+            <div class="chips" id="B_tiltak"></div>
+            <label class="block" for="B_fritekst">Fritekst B</label>
+            <textarea id="B_fritekst" placeholder="Supplerende vurdering av respirasjon"></textarea>
+
+            <div class="divider"></div>
+            <div class="fields-3">
+              <div>
+                <label class="block" for="rf">Respirasjonsfrekvens</label>
+                <select id="rf"><option value="">Ikke målt</option></select>
+              </div>
+              <div>
+                <label class="block" for="spo2">SpO2</label>
+                <select id="spo2"><option value="">Ikke målt</option></select>
+                <div class="hint">Målområde er vanligvis 94-98%, eller 88-92% ved risiko for hyperkapnisk respirasjonssvikt.</div>
+              </div>
+              <div>
+                <label class="block" for="o2tilskudd">Luft / oksygen</label>
+                <select id="o2tilskudd">
+                  <option value="">Ikke angitt</option>
+                  <option value="Luft">Luft</option>
+                  <option value="Oksygen">Oksygen</option>
+                </select>
+              </div>
+            </div>
+            <div class="btn-row">
+              <button class="primary save-measurement-btn" type="button">Lagre måling</button>
+            </div>
+            <div class="divider"></div>
+            <div class="section-title">
+              <h3>Målelogg B</h3>
+              <small>Respirasjonsmålinger</small>
+            </div>
+            <div id="B_measurements" class="list">
+              <div class="item muted">Ingen B-målinger lagt inn ennå.</div>
+            </div>
+          </section>
+
+          <section class="card">
+            <div class="section-title"><h2>C - Circulation</h2><small id="C_status" class="section-status pending">Ikke vurdert</small></div>
+            <label class="block">Funn</label>
+            <div class="chips" id="C_funn"></div>
+            <label class="block">Tiltak</label>
+            <div class="chips" id="C_tiltak"></div>
+            <label class="block" for="C_fritekst">Fritekst C</label>
+            <textarea id="C_fritekst" placeholder="Supplerende vurdering av sirkulasjon"></textarea>
+
+            <div class="divider"></div>
+            <div class="fields-3">
+              <div>
+                <label class="block" for="puls">Puls</label>
+                <select id="puls"><option value="">Ikke målt</option></select>
+              </div>
+              <div>
+                <label class="block" for="sysbt">Systolisk BT</label>
+                <select id="sysbt"><option value="">Ikke målt</option></select>
+              </div>
+              <div>
+                <label class="block" for="diabt">Diastolisk BT</label>
+                <select id="diabt"><option value="">Ikke målt</option></select>
+              </div>
+            </div>
+            <div class="btn-row">
+              <button class="primary save-measurement-btn" type="button">Lagre måling</button>
+            </div>
+            <div class="divider"></div>
+            <div class="section-title">
+              <h3>Målelogg C</h3>
+              <small>Sirkulasjonsmålinger</small>
+            </div>
+            <div id="C_measurements" class="list">
+              <div class="item muted">Ingen C-målinger lagt inn ennå.</div>
+            </div>
+          </section>
+
+          <section class="card">
+            <div class="section-title"><h2>D - Disability</h2><small id="D_status" class="section-status pending">Ikke vurdert</small></div>
+            <label class="block">Funn</label>
+            <div class="chips" id="D_funn"></div>
+            <label class="block">Tiltak</label>
+            <div class="chips" id="D_tiltak"></div>
+            <label class="block" for="D_fritekst">Fritekst D</label>
+            <textarea id="D_fritekst" placeholder="Supplerende vurdering av bevissthet og nevrologi"></textarea>
+
+            <div class="divider"></div>
+            <div class="fields-3">
+              <div>
+                <label class="block" for="acvpu">ACVPU / ny forvirring</label>
+                <select id="acvpu">
+                  <option value="">Ikke angitt</option>
+                  <option value="A">A = Våken</option>
+                  <option value="C">C = Ny forvirring</option>
+                  <option value="V">V = Reagerer på tiltale</option>
+                  <option value="P">P = Reagerer på smerte</option>
+                  <option value="U">U = Ingen respons</option>
+                </select>
+              </div>
+              <div>
+                <label class="block" for="blodsukker">Blodsukker</label>
+                <select id="blodsukker"><option value="">Ikke målt</option></select>
+              </div>
+              <div></div>
+              <div>
+                <label class="block" for="gcs_eye">GCS Eye</label>
+                <select id="gcs_eye">
+                  <option value="">Velg</option>
+                  <option value="4">4 - Åpner øynene spontant</option>
+                  <option value="3">3 - Åpner øynene på tiltale</option>
+                  <option value="2">2 - Åpner øynene på smerte</option>
+                  <option value="1">1 - Ingen øyeåpning</option>
+                </select>
+              </div>
+              <div>
+                <label class="block" for="gcs_verbal">GCS Verbal</label>
+                <select id="gcs_verbal">
+                  <option value="">Velg</option>
+                  <option value="5">5 - Orientert</option>
+                  <option value="4">4 - Forvirret</option>
+                  <option value="3">3 - Usammenhengende ord</option>
+                  <option value="2">2 - Uforståelige lyder</option>
+                  <option value="1">1 - Ingen verbal respons</option>
+                </select>
+              </div>
+              <div>
+                <label class="block" for="gcs_motor">GCS Motor</label>
+                <select id="gcs_motor">
+                  <option value="">Velg</option>
+                  <option value="6">6 - Følger kommandoer</option>
+                  <option value="5">5 - Lokaliserer smerte</option>
+                  <option value="4">4 - Trekker unna smerte</option>
+                  <option value="3">3 - Fleksjon ved smerte</option>
+                  <option value="2">2 - Ekstensjon ved smerte</option>
+                  <option value="1">1 - Ingen motorisk respons</option>
+                </select>
+              </div>
+            </div>
+            <div class="btn-row">
+              <button class="primary save-measurement-btn" type="button">Lagre måling</button>
+            </div>
+
+            <div class="divider"></div>
+            <div class="fields-2">
+              <div>
+                <label class="block" for="fastUtfort">FAST-unders&oslash;kelse utf&oslash;rt?</label>
+                <select id="fastUtfort">
+                  <option value="">Velg</option>
+                  <option value="Ja">Ja</option>
+                  <option value="Nei">Nei</option>
+                </select>
+              </div>
+              <div>
+                <label class="block">FAST-funn</label>
+                <div class="chips" id="fast_funn"></div>
+                <div class="hint">Vurder Face, Arm, Speech og tidspunkt for symptomdebut / sist sett normal.</div>
+              </div>
+            </div>
+            <div class="divider"></div>
+            <div class="section-title">
+              <h3>Målelogg D</h3>
+              <small>Bevissthet og nevrologi</small>
+            </div>
+            <div id="D_measurements" class="list">
+              <div class="item muted">Ingen D-målinger lagt inn ennå.</div>
+            </div>
+          </section>
+
+          <section class="card">
+            <div class="section-title"><h2>E - Exposure</h2><small id="E_status" class="section-status pending">Ikke vurdert</small></div>
+            <label class="block">Funn</label>
+            <div class="chips" id="E_funn"></div>
+            <label class="block">Tiltak</label>
+            <div class="chips" id="E_tiltak"></div>
+            <label class="block" for="E_fritekst">Fritekst E</label>
+            <textarea id="E_fritekst" placeholder="Supplerende vurdering av eksponering og øvrige funn"></textarea>
+
+            <div class="divider"></div>
+            <div class="fields-2">
+              <div>
+                <label class="block" for="garSelv">G&aring;r selv?</label>
+                <select id="garSelv">
+                  <option value="">Velg</option>
+                  <option value="Ja, uten st&oslash;tte">Ja, uten st&oslash;tte</option>
+                  <option value="Ja, med st&oslash;tte">Ja, med st&oslash;tte</option>
+                  <option value="Nei">Nei</option>
+                </select>
+              </div>
+              <div>
+                <label class="block" for="smerte">Smerte 1-10</label>
+                <select id="smerte">
+                  <option value="">Ikke angitt</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="fields-2">
+              <div>
+                <label class="block" for="temp">Temperatur</label>
+                <select id="temp"><option value="">Ikke målt</option></select>
+              </div>
+            </div>
+            <div class="btn-row">
+              <button class="primary save-measurement-btn" type="button">Lagre måling</button>
+            </div>
+            <div class="divider"></div>
+            <div class="section-title">
+              <h3>Målelogg E</h3>
+              <small>Temperatur og smerte</small>
+            </div>
+            <div id="E_measurements" class="list">
+              <div class="item muted">Ingen E-målinger lagt inn ennå.</div>
+            </div>
+          </section>
+
+        </div>
+
+        <div class="right-col">
+          <section class="card">
+            <div class="section-title">
+              <h2>Automatisk vurdering</h2>
+              <small>Basert p&aring; siste m&aring;ling</small>
+            </div>
+
+            <div class="status-grid">
+              <div class="status-row"><strong>Hastegrad</strong> <span id="outHastegrad">-</span></div>
+              <div class="status-row"><strong>NEWS</strong> <span id="outNEWS">-</span></div>
+              <div class="status-row"><strong>GCS</strong> <span id="outGCS">-</span></div>
+              <div class="status-row"><strong>Siste måling</strong> <span id="outLastMeasurement">-</span></div>
+            </div>
+
+            <div class="divider"></div>
+            <h3>NEWS - detaljert scoring</h3>
+            <div id="outNewsBreakdown" class="list">
+              <div class="item muted">Ingen m&aring;ling lagt inn enn&aring;.</div>
+            </div>
+
+            <div class="divider"></div>
+            <h3>Forklaring hastegrad</h3>
+            <div id="outUrgencyExplanation" class="list">
+              <div class="item muted">Ingen hastegrad beregnet ennå.</div>
+            </div>
+
+            <div class="divider"></div>
+            <h3>Kritiske funn</h3>
+            <div id="outCritical" class="list">
+              <div class="item muted">Ingen kritiske funn.</div>
+            </div>
+
+            <div class="divider"></div>
+            <h3>Mulige tilstander</h3>
+            <p class="hint">Forslagene under er kun beslutningsst&oslash;tte basert p&aring; registrerte funn og m&aring;linger. De erstatter ikke klinisk vurdering, full pasientunders&oslash;kelse, medisinsk beslutning eller endelig diagnose.</p>
+            <div id="outConditions" class="list" style="margin-top:10px;">
+              <div class="item muted">Ingen tydelige mistanker enn&aring;.</div>
+            </div>
+
+            <div class="divider"></div>
+            <h3>Registrerte tiltak</h3>
+            <div id="outActions" class="list">
+              <div class="item muted">Ingen tiltak registrert enn&aring;.</div>
+            </div>
+          </section>
+
+          <section class="card">
+            <div class="section-title">
+              <h2>Varsling og respons</h2>
+              <small>Legges ogs&aring; inn i oppsummeringen</small>
+            </div>
+
+            <div class="fields-2">
+              <div>
+                <label class="block" for="varslet113">113 varslet?</label>
+                <select id="varslet113">
+                  <option value="Nei">Nei</option>
+                  <option value="Ja">Ja</option>
+                </select>
+              </div>
+              <div id="wrapTid113">
+                <label class="block" for="tid113">Tidspunkt 113 varslet</label>
+                <input id="tid113" type="datetime-local" />
+              </div>
+              <div id="wrapTidAmbulanse">
+                <label class="block" for="tidAmbulanse">Tidspunkt ambulanse ankom</label>
+                <input id="tidAmbulanse" type="datetime-local" />
+              </div>
+              <div>
+                <label class="block" for="varsletVaktleder">Vaktleder varslet?</label>
+                <select id="varsletVaktleder">
+                  <option value="Nei">Nei</option>
+                  <option value="Ja">Ja</option>
+                </select>
+              </div>
+              <div id="wrapTidVaktleder">
+                <label class="block" for="tidVaktleder">Tidspunkt vaktleder varslet</label>
+                <input id="tidVaktleder" type="datetime-local" />
+              </div>
+            </div>
+
+            <div class="divider"></div>
+            <div class="section-title">
+              <h2>Oppsummering</h2>
+              <small>Klar til &aring; lese opp / notere</small>
+            </div>
+            <div id="summary" class="item summary-box muted">
+              Legg inn funn og minst én måling for å få oppsummering.
+            </div>
+
+            <div class="btn-row">
+              <button class="primary" id="saveCaseBtn" type="button">Ferdigstill og lagre</button>
+              <button class="secondary" id="newPatientBtn" type="button">Ny pasient</button>
+              <button class="ghost" id="copySummaryBtn" type="button">Kopier oppsummering</button>
+              <button class="ghost" id="scrollTopBtn" type="button">Til toppen</button>
+              <button class="ghost" id="resetAllBtn" type="button">Forkast aktiv registrering</button>
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <section id="caseLogPage" class="hidden">
+      <section class="card">
+        <div class="section-title">
+          <h2>Brukeroversikt</h2>
+          <small>Hvem som har registrert case</small>
+        </div>
+        <div class="fields-2">
+          <div>
+            <label class="block" for="caseUserFilter">Filtrer på bruker</label>
+            <select id="caseUserFilter">
+              <option value="">Alle brukere</option>
+            </select>
+          </div>
+        </div>
+        <div id="userOverview" class="list" style="margin-top:12px;">
+          <div class="item muted">Ingen brukere registrert ennå.</div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="section-title">
+          <h2>Caselogg</h2>
+          <small>Tidligere registrerte case</small>
+        </div>
+        <div id="caseList" class="list">
+          <div class="item muted">Ingen case registrert enn&aring;.</div>
+        </div>
+      </section>
+
+      <section class="card" style="margin-top:16px;">
+        <div class="section-title">
+          <h2>Valgt case</h2>
+          <small>Detaljert oppsummering</small>
+        </div>
+        <div id="selectedCaseSummary" class="item summary-box muted">
+          Velg et case fra listen over.
+        </div>
+      </section>
+    </section>
+  </div>
+
+  <script>
+    const STORAGE_KEY = "ae_vurdering_cases_v2";
+    const USERS_KEY = "ae_vurdering_users_v1";
+    const CURRENT_USER_KEY = "ae_vurdering_current_user_v1";
+
+    const OPTIONS = {
+      A_funn: [
+        "Frie luftveier",
+        "Snakker tydelig / hele setninger",
+        "Bevisstløs",
+        "Delvis obstruerte luftveier",
+        "Truede luftveier",
+        "Snorkende respirasjon",
+        "Gurgling / sekret i luftveier",
+        "Stridor",
+        "Fremmedlegeme mistenkes",
+        "Oppkast / blod / sekret i munnhule",
+        "Hevelse i ansikt / hals"
+      ],
+      A_tiltak: [
+        "Ingen tiltak utført",
+        "Hake-/kjeveløft utført",
+        "Pasienten lagt i sideleie",
+        "Suging utført",
+        "Fremmedlegeme fjernet",
+        "Luftveishjelpemiddel lagt inn",
+        "Luftveier frigjort etter tiltak"
+      ],
+      B_funn: [
+        "Upåvirket respirasjon",
+        "Dyspné (opplevd tung pust)",
+        "Hurtig respirasjon (rask pust)",
+        "Bradypné (langsom pust)",
+        "Overflatisk respirasjon",
+        "Uregelmessig respirasjon",
+        "Cyanose (blålig hud / lepper)",
+        "Bruker aksessorisk muskulatur (bruker hjelpemuskler)",
+        "Reduserte respirasjonslyder",
+        "Pipelyder / wheezing",
+        "Ensidig svekket respirasjonslyd",
+        "Hoste"
+      ],
+      B_tiltak: [
+        "Ingen tiltak utført",
+        "Pasienten leiret for best mulig respirasjon",
+        "Oksygen gitt",
+        "SpO2 overvåket tett",
+        "Inhalasjonsbehandling gitt",
+        "Respirasjon reevaluert tett"
+      ],
+      C_funn: [
+        "Hud varm og tørr",
+        "Hud varm og klam",
+        "Hud kald og klam",
+        "Blek",
+        "Cyanotisk",
+        "Radialispuls palpabel",
+        "Svak perifer puls",
+        "Kapillærfylning under 2 sek",
+        "Kapillærfylning over 2 sek",
+        "Ingen synlig blødning",
+        "Pågående blødning",
+        "Tegn til sirkulasjonssvikt",
+        "Brystsmerter",
+        "Hevelse / ødem",
+        "Kaldsvett"
+      ],
+      C_tiltak: [
+        "Ingen tiltak utført",
+        "Blødning stanset",
+        "Blødningssted hevet",
+        "Pasienten holdt varm",
+        "Pasienten leiret etter sirkulasjonstilstand",
+        "Sirkulasjon reevaluert tett"
+      ],
+      D_funn: [
+        "Våken og orientert",
+        "Ny forvirring",
+        "Urolig / agitert",
+        "Sløv",
+        "Reagerer på tiltale",
+        "Reagerer på smerte",
+        "Ingen reaksjon",
+        "Pupiller like og lysreagerende",
+        "Ulike pupiller",
+        "Talevansker",
+        "Ensidig ansiktslammelse",
+        "Ensidig kraftsvikt",
+        "Kramper",
+        "Mistanke om hypoglykemi",
+        "Mistanke om rus / intoksikasjon"
+      ],
+      D_tiltak: [
+        "Ingen tiltak utført",
+        "Luftveier sikret",
+        "Blodsukker kontrollert",
+        "Bevissthet observert tett",
+        "Rask transport / varsling iverksatt",
+        "Pasienten beskyttet ved kramper"
+      ],
+      E_funn: [
+        "Ingen synlige skader",
+        "Sår / skade observert",
+        "Feilstilling / deformitet",
+        "Hevelse",
+        "Smerter ved palpasjon / undersøkelse",
+        "Utslett",
+        "Tegn til infeksjon",
+        "Nedkjølt",
+        "Feberfølelse / varm hud",
+        "Fuktig / svett",
+        "Tørre slimhinner",
+        "Oppkast",
+        "Diaré"
+      ],
+      E_tiltak: [
+        "Ingen tiltak utført",
+        "Helkroppsundersøkelse fullført",
+        "Pasienten tildekket / holdt varm",
+        "Skadeområde avlastet / immobilisert",
+        "Hud / utslett vurdert på nytt",
+        "Pasienten reevaluert tett"
+      ],
+      fast_funn: [
+        "Ingen FAST-funn",
+        "Ansiktsdropp",
+        "Armdrift / ensidig kraftsvikt",
+        "Talevansker / språkforstyrrelse",
+        "Plutselig symptomdebut"
+      ]
+    };
+
+    const NOTE_FIELD_IDS = ["A_fritekst", "B_fritekst", "C_fritekst", "D_fritekst", "E_fritekst"];
+    const CASE_TEXT_FIELD_IDS = ["caseNummer", "tidspunkt", "situasjon", "tid113", "tidAmbulanse", "tidVaktleder", ...NOTE_FIELD_IDS];
+    const CASE_SELECT_FIELD_IDS = [
+      "kategori", "kjonn", "garSelv", "smerte", "rf", "spo2", "o2tilskudd", "puls", "sysbt", "diabt", "temp",
+      "blodsukker", "acvpu", "gcs_eye", "gcs_verbal", "gcs_motor", "fastUtfort"
+    ];
+    const MEASUREMENT_FIELD_IDS = ["rf", "spo2", "o2tilskudd", "puls", "sysbt", "diabt", "temp", "blodsukker", "smerte", "acvpu", "gcs_eye", "gcs_verbal", "gcs_motor"];
+    const RESET_FIELD_DEFAULTS = {
+      caseNummer: "",
+      tidspunkt: () => nowLocalValue(),
+      kategori: "",
+      kjonn: "",
+      fodselsaar: "",
+      alder: "",
+      situasjon: "",
+      A_fritekst: "",
+      B_fritekst: "",
+      C_fritekst: "",
+      D_fritekst: "",
+      E_fritekst: "",
+      garSelv: "",
+      fastUtfort: "",
+      smerte: "",
+      varslet113: "Nei",
+      tid113: "",
+      tidAmbulanse: "",
+      varsletVaktleder: "Nei",
+      tidVaktleder: ""
+    };
+
+    const selections = {
+      A_funn: [],
+      A_tiltak: [],
+      B_funn: [],
+      B_tiltak: [],
+      C_funn: [],
+      C_tiltak: [],
+      D_funn: [],
+      D_tiltak: [],
+      fast_funn: [],
+      E_funn: [],
+      E_tiltak: []
+    };
+
+    const vitalsLog = [];
+    const sectionEvaluatedAt = { A: "", B: "", C: "", D: "", E: "" };
+    let savedCases = loadSavedCases();
+    let knownUsers = loadKnownUsers();
+    let currentUser = "";
+
+    function el(id) {
+      return document.getElementById(id);
+    }
+
+    function showAppError(message, error) {
+      const banner = el("appError");
+      if (!banner) return;
+      banner.textContent = message;
+      banner.classList.remove("hidden");
+      if (error) console.error(message, error);
+    }
+
+    function clearAppError() {
+      const banner = el("appError");
+      if (!banner) return;
+      banner.textContent = "";
+      banner.classList.add("hidden");
+    }
+
+    function withUiGuard(action, message = "Det oppstod en feil i appen.") {
+      return (...args) => {
+        try {
+          clearAppError();
+          return action(...args);
+        } catch (error) {
+          showAppError(message, error);
+          return null;
+        }
+      };
+    }
+
+    function normalizeUserName(name) {
+      return (name || "").trim().replace(/\s+/g, " ");
+    }
+
+    function nowLocalValue() {
+      const d = new Date();
+      d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
+      return d.toISOString().slice(0, 16);
+    }
+
+    function formatDateTime(value) {
+      if (!value) return "Uten tidspunkt";
+      const date = new Date(value);
+      if (Number.isNaN(date.getTime())) return value;
+
+      return new Intl.DateTimeFormat("nb-NO", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit"
+      }).format(date);
+    }
+
+    function num(id) {
+      const value = el(id).value;
+      return value === "" ? null : Number(value);
+    }
+
+    function getValue(id) {
+      return el(id).value;
+    }
+
+    function setValue(id, value) {
+      el(id).value = typeof value === "function" ? value() : value;
+    }
+
+    function currentYear() {
+      return new Date().getFullYear();
+    }
+
+    function calculateAge() {
+      const year = num("fodselsaar");
+      if (!year) {
+        el("alder").value = "";
+        return "";
+      }
+      const age = currentYear() - year;
+      el("alder").value = age >= 0 ? age : "";
+      return el("alder").value;
+    }
+
+    function hasValue(value) {
+      return value !== null && value !== undefined && value !== "";
+    }
+
+    function numberRange(start, end, step = 1) {
+      const values = [];
+      for (let value = start; value <= end + 0.0001; value += step) {
+        values.push(Number(value.toFixed(1)));
+      }
+      return values;
+    }
+
+    function setSelectOptions(id, values, placeholder, formatter = value => String(value)) {
+      const select = el(id);
+      select.innerHTML = "";
+
+      const placeholderOption = document.createElement("option");
+      placeholderOption.value = "";
+      placeholderOption.textContent = placeholder;
+      select.appendChild(placeholderOption);
+
+      values.forEach(value => {
+        const option = document.createElement("option");
+        option.value = formatter(value);
+        option.textContent = formatter(value);
+        select.appendChild(option);
+      });
+    }
+
+    function initSelectOptions() {
+      setSelectOptions("smerte", numberRange(1, 10), "Ikke angitt");
+      setSelectOptions("rf", numberRange(6, 40), "Ikke målt");
+      setSelectOptions("spo2", numberRange(70, 100).reverse(), "Ikke målt");
+      setSelectOptions("puls", numberRange(30, 180), "Ikke målt");
+      setSelectOptions("sysbt", numberRange(50, 250, 1), "Ikke målt");
+      setSelectOptions("diabt", numberRange(20, 180, 1), "Ikke målt");
+      setSelectOptions("temp", numberRange(32, 42, 0.1), "Ikke målt", value => value.toFixed(1));
+      setSelectOptions("blodsukker", numberRange(1, 25, 0.1), "Ikke målt", value => value.toFixed(1));
+    }
+
+    function renderChips(containerId, options) {
+      const container = el(containerId);
+      container.innerHTML = "";
+
+      options.forEach(option => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "chip";
+        btn.textContent = option;
+        btn.addEventListener("click", () => {
+          const arr = selections[containerId];
+          const index = arr.indexOf(option);
+          if (index >= 0) {
+            arr.splice(index, 1);
+            btn.classList.remove("active");
+          } else {
+            arr.push(option);
+            btn.classList.add("active");
+          }
+          const section = sectionFromChipId(containerId);
+          if (section) markSectionEvaluated(section);
+          updateOutputs();
+        });
+        container.appendChild(btn);
+      });
+    }
+
+    function initChips() {
+      Object.entries(OPTIONS).forEach(([id, list]) => renderChips(id, list));
+    }
+
+    function latestVitals() {
+      return vitalsLog.length ? vitalsLog[vitalsLog.length - 1] : null;
+    }
+
+    function calcGCS(v) {
+      if (!v || [v.gcsEye, v.gcsVerbal, v.gcsMotor].some(value => value == null)) return null;
+      return v.gcsEye + v.gcsVerbal + v.gcsMotor;
+    }
+
+    function scoreRF(rf) {
+      if (rf == null) return 0;
+      if (rf <= 8) return 3;
+      if (rf <= 11) return 1;
+      if (rf <= 20) return 0;
+      if (rf <= 24) return 2;
+      return 3;
+    }
+
+    function scoreSpO2(spo2) {
+      if (spo2 == null) return 0;
+      if (spo2 >= 96) return 0;
+      if (spo2 >= 94) return 1;
+      if (spo2 >= 92) return 2;
+      return 3;
+    }
+
+    function scorePuls(puls) {
+      if (puls == null) return 0;
+      if (puls <= 40) return 3;
+      if (puls <= 50) return 1;
+      if (puls <= 90) return 0;
+      if (puls <= 110) return 1;
+      if (puls <= 130) return 2;
+      return 3;
+    }
+
+    function scoreBT(sysbt) {
+      if (sysbt == null) return 0;
+      if (sysbt <= 90) return 3;
+      if (sysbt <= 100) return 2;
+      if (sysbt <= 110) return 1;
+      if (sysbt <= 219) return 0;
+      return 3;
+    }
+
+    function scoreTemp(temp) {
+      if (temp == null) return 0;
+      if (temp <= 35) return 3;
+      if (temp <= 36) return 1;
+      if (temp <= 38) return 0;
+      if (temp <= 39) return 1;
+      return 2;
+    }
+
+    function scoreACVPU(acvpu) {
+      if (!acvpu) return 0;
+      return acvpu === "A" ? 0 : 3;
+    }
+
+    function scoreOxygen(o2tilskudd) {
+      if (!o2tilskudd) return 0;
+      return o2tilskudd === "Oksygen" ? 2 : 0;
+    }
+
+    function calcNEWS(v) {
+      if (!v) return null;
+      return (
+        scoreRF(v.rf) +
+        scoreSpO2(v.spo2) +
+        scoreOxygen(v.o2tilskudd) +
+        scorePuls(v.puls) +
+        scoreBT(v.sysbt) +
+        scoreTemp(v.temp) +
+        scoreACVPU(v.acvpu)
+      );
+    }
+
+    function dFindings() {
+      return new Set(selections.D_funn);
+    }
+
+    function hasNewConfusion(v) {
+      const findings = dFindings();
+      return findings.has("Ny forvirring") || v?.acvpu === "C";
+    }
+
+    function hasReducedConsciousness(v, gcs) {
+      const findings = dFindings();
+      if (selections.A_funn.includes("Bevisstløs")) return true;
+      if (findings.has("Sløv")) return true;
+      if (findings.has("Reagerer på tiltale")) return true;
+      if (findings.has("Reagerer på smerte")) return true;
+      if (findings.has("Ingen reaksjon")) return true;
+      if (v && ["V", "P", "U"].includes(v.acvpu)) return true;
+      if (gcs != null && gcs < 15) return true;
+      return false;
+    }
+
+    function urgency(news, v, gcs) {
+      if (hasReducedConsciousness(v, gcs)) return { text: "Kritisk hastegrad", cls: "kritisk" };
+      if (news == null) return { text: "-", cls: "" };
+      if (news <= 4) return { text: "Lav hastegrad", cls: "lav" };
+      if (news <= 6) return { text: "Moderat hastegrad", cls: "moderat" };
+      if (news <= 8) return { text: "Høy hastegrad", cls: "hoy" };
+      return { text: "Kritisk hastegrad", cls: "kritisk" };
+    }
+
+    function urgencyExplanation(news, v, gcs) {
+      if (hasReducedConsciousness(v, gcs)) {
+        return news == null
+          ? "Hastegrad er satt til kritisk fordi pasienten har redusert bevissthet. Dette gjelder ved bevisstløshet, sløvhet, respons kun på tiltale eller smerte, ACVPU V/P/U, eller GCS under 15."
+          : `Hastegrad er satt til kritisk fordi pasienten har redusert bevissthet. Dette gjelder ved bevisstløshet, sløvhet, respons kun på tiltale eller smerte, ACVPU V/P/U, eller GCS under 15. NEWS er ${news}.`;
+      }
+      if (news == null) return "Ingen hastegrad kan beregnes uten minst én måling.";
+      if (news <= 4) return `Hastegrad er satt til lav fordi NEWS er ${news}, og 0-4 tilsvarer lav hastegrad.`;
+      if (news <= 6) return `Hastegrad er satt til moderat fordi NEWS er ${news}, og 5-6 tilsvarer moderat hastegrad.`;
+      if (news <= 8) return `Hastegrad er satt til høy fordi NEWS er ${news}, og 7-8 tilsvarer høy hastegrad.`;
+      return `Hastegrad er satt til kritisk fordi NEWS er ${news}, og 9 eller høyere tilsvarer kritisk hastegrad.`;
+    }
+
+    function dash(value) {
+      return hasValue(value) ? value : "-";
+    }
+
+    function allFindings() {
+      return [
+        ...selections.A_funn,
+        ...selections.B_funn,
+        ...selections.C_funn,
+        ...selections.D_funn,
+        ...selections.fast_funn,
+        ...selections.E_funn
+      ];
+    }
+
+    function criticalFindings(v, gcs) {
+      const out = [];
+      if (hasReducedConsciousness(v, gcs)) out.push("Redusert bevissthet");
+      if (hasNewConfusion(v)) out.push("Ny forvirring");
+      if (v?.spo2 != null && v.spo2 < 90) out.push("Lav SpO2");
+      if (v?.blodsukker != null && v.blodsukker < 4) out.push("Lavt blodsukker");
+      if (gcs != null && gcs <= 8) out.push("Kritisk redusert bevissthet");
+      if (v?.sysbt != null && v.sysbt < 90) out.push("Lavt systolisk blodtrykk");
+      if (v?.temp != null && v.temp >= 39) out.push("Høy temperatur");
+      if (v?.rf != null && v.rf >= 25) out.push("Høy respirasjonsfrekvens");
+      if (v?.puls != null && v.puls > 130) out.push("Høy puls");
+      return out;
+    }
+
+    function conditions(v, news, gcs) {
+      if (!v) return [];
+
+      const findings = new Set(allFindings());
+      const has = value => findings.has(value);
+      const out = [];
+
+      const lowSpO2 = v.spo2 != null && v.spo2 < 92;
+      const highRf = v.rf != null && v.rf > 24;
+      const lowSys = v.sysbt != null && v.sysbt < 90;
+      const borderlineSys = v.sysbt != null && v.sysbt < 100;
+      const highPulse = v.puls != null && v.puls > 110;
+      const tempHigh = v.temp != null && v.temp >= 38;
+      const tempVeryHigh = v.temp != null && v.temp >= 39;
+      const tempLow = v.temp != null && v.temp < 35;
+      const lowSugar = v.blodsukker != null && v.blodsukker < 4;
+      const reducedConsciousness = hasReducedConsciousness(v, gcs);
+      const newConfusion = hasNewConfusion(v);
+      const hypoglycemiaSupport =
+        lowSugar ||
+        (
+          has("Mistanke om hypoglykemi") &&
+          (has("Kaldsvett") || reducedConsciousness || newConfusion)
+        );
+
+      if (hypoglycemiaSupport) {
+        out.push("Hypoglykemi");
+      }
+
+      if (tempHigh || has("Tegn til infeksjon") || (has("Hoste") && highRf)) {
+        out.push("Infeksjon");
+      }
+
+      if ((tempHigh || has("Tegn til infeksjon")) && (highRf || borderlineSys || reducedConsciousness || newConfusion || tempLow)) {
+        out.push("Sepsis / alvorlig infeksjon");
+      }
+
+      if (
+        lowSys ||
+        (borderlineSys && highPulse) ||
+        has("Hud kald og klam") ||
+        has("Blek") ||
+        has("Svak perifer puls") ||
+        has("Kapillærfylning over 2 sek") ||
+        has("Tegn til sirkulasjonssvikt")
+      ) {
+        out.push("Sirkulasjonssvikt / sjokk");
+      }
+
+      if (has("Tørre slimhinner") || has("Oppkast") || has("Diaré") || (borderlineSys && highPulse)) {
+        out.push("Dehydrering / hypovolemi");
+      }
+
+      if (
+        has("Talevansker") ||
+        has("Ensidig ansiktslammelse") ||
+        has("Ensidig kraftsvikt") ||
+        has("Ulike pupiller") ||
+        selections.fast_funn.some(value => value !== "Ingen FAST-funn")
+      ) {
+        out.push("Hjerneslag / akutt nevrologisk hendelse");
+      }
+
+      if (has("Utslett") && (lowSys || has("Hevelse i ansikt / hals") || lowSpO2)) {
+        out.push("Anafylaksi / alvorlig allergisk reaksjon");
+      }
+
+      if (
+        has("Dyspné (opplevd tung pust)") &&
+        (has("Pipelyder / wheezing") || has("Bruker aksessorisk muskulatur (bruker hjelpemuskler)") || lowSpO2)
+      ) {
+        out.push("Astma / KOLS-forverring");
+      }
+
+      if (has("Brystsmerter") && (has("Kaldsvett") || highPulse || borderlineSys)) {
+        out.push("Akutt koronarsyndrom");
+      }
+
+      if (
+        has("Dyspné (opplevd tung pust)") &&
+        has("Hevelse / ødem") &&
+        (highRf || lowSpO2)
+      ) {
+        out.push("Akutt hjertesvikt / lungeødem");
+      }
+
+      if (
+        has("Dyspné (opplevd tung pust)") &&
+        has("Brystsmerter") &&
+        lowSpO2 &&
+        highPulse
+      ) {
+        out.push("Lungeemboli");
+      }
+
+      if ((has("Oppkast") || has("Diaré")) && has("Tørre slimhinner")) {
+        out.push("Gastroenteritt");
+      }
+
+      if (has("Feilstilling / deformitet") || has("Sår / skade observert")) {
+        out.push("Traume / fraktur");
+      }
+
+      if (tempLow || has("Nedkjølt")) {
+        out.push("Nedkjøling");
+      }
+
+      if (tempVeryHigh || (has("Feberfølelse / varm hud") && has("Fuktig / svett") && highPulse)) {
+        out.push("Hypertermi / varmesykdom");
+      }
+
+      if (has("Kramper")) {
+        out.push("Kramper / postiktal tilstand");
+      }
+
+      if (has("Mistanke om rus / intoksikasjon")) {
+        out.push("Intoksikasjon / rus");
+      }
+
+      return [...new Set(out)];
+    }
+
+    function actionsFrom() {
+      const actions = [
+        ...selections.A_tiltak.filter(value => value !== "Ingen tiltak utført").map(value => `A - ${value}`),
+        ...selections.B_tiltak.filter(value => value !== "Ingen tiltak utført").map(value => `B - ${value}`),
+        ...selections.C_tiltak.filter(value => value !== "Ingen tiltak utført").map(value => `C - ${value}`),
+        ...selections.D_tiltak.filter(value => value !== "Ingen tiltak utført").map(value => `D - ${value}`),
+        ...selections.E_tiltak.filter(value => value !== "Ingen tiltak utført").map(value => `E - ${value}`)
+      ];
+      return [...new Set(actions)];
+    }
+
+    function measurementParts(v, gcs) {
+      if (!v) return [];
+      const parts = [];
+      if (hasValue(v.rf)) parts.push(`RF ${v.rf}`);
+      if (hasValue(v.spo2)) parts.push(`SpO2 ${v.spo2}`);
+      if (hasValue(v.o2tilskudd)) parts.push(v.o2tilskudd);
+      if (hasValue(v.puls)) parts.push(`Puls ${v.puls}`);
+      if (hasValue(v.sysbt) && hasValue(v.diabt)) parts.push(`BT ${v.sysbt}/${v.diabt}`);
+      else if (hasValue(v.sysbt)) parts.push(`Systolisk BT ${v.sysbt}`);
+      else if (hasValue(v.diabt)) parts.push(`Diastolisk BT ${v.diabt}`);
+      if (hasValue(v.temp)) parts.push(`Temperatur ${v.temp}`);
+      if (hasValue(v.blodsukker)) parts.push(`Blodsukker ${v.blodsukker}`);
+      if (hasValue(v.smerte)) parts.push(`Smerte ${v.smerte}`);
+      if (hasValue(v.acvpu)) parts.push(`ACVPU ${v.acvpu}`);
+      if (gcs != null) parts.push(`GCS ${gcs}`);
+      return parts;
+    }
+
+    function sectionMeasurementParts(v, section, gcs) {
+      const parts = [];
+      if (section === "B") {
+        if (hasValue(v.rf)) parts.push(`RF ${v.rf}`);
+        if (hasValue(v.spo2)) parts.push(`SpO2 ${v.spo2}`);
+        if (hasValue(v.o2tilskudd)) parts.push(v.o2tilskudd);
+      }
+      if (section === "C") {
+        if (hasValue(v.puls)) parts.push(`Puls ${v.puls}`);
+        if (hasValue(v.sysbt) && hasValue(v.diabt)) parts.push(`BT ${v.sysbt}/${v.diabt}`);
+        else if (hasValue(v.sysbt)) parts.push(`Systolisk BT ${v.sysbt}`);
+        else if (hasValue(v.diabt)) parts.push(`Diastolisk BT ${v.diabt}`);
+      }
+      if (section === "D") {
+        if (hasValue(v.acvpu)) parts.push(`ACVPU ${v.acvpu}`);
+        if (hasValue(v.blodsukker)) parts.push(`Blodsukker ${v.blodsukker}`);
+        if (gcs != null) parts.push(`GCS ${gcs}`);
+      }
+      if (section === "E") {
+        if (hasValue(v.temp)) parts.push(`Temperatur ${v.temp}`);
+        if (hasValue(v.smerte)) parts.push(`Smerte ${v.smerte}`);
+      }
+      return parts;
+    }
+
+    function newsBreakdownLines(v, news) {
+      if (!v) return [];
+      const lines = [];
+      if (hasValue(v.rf)) lines.push(`Respirasjonsfrekvens: ${v.rf} = ${scoreRF(v.rf)} poeng`);
+      if (hasValue(v.spo2)) lines.push(`SpO2: ${v.spo2} = ${scoreSpO2(v.spo2)} poeng`);
+      if (hasValue(v.o2tilskudd)) lines.push(`Luft / oksygen: ${v.o2tilskudd} = ${scoreOxygen(v.o2tilskudd)} poeng`);
+      if (hasValue(v.puls)) lines.push(`Puls: ${v.puls} = ${scorePuls(v.puls)} poeng`);
+      if (hasValue(v.sysbt)) lines.push(`Systolisk BT: ${v.sysbt} = ${scoreBT(v.sysbt)} poeng`);
+      if (hasValue(v.temp)) lines.push(`Temperatur: ${v.temp} = ${scoreTemp(v.temp)} poeng`);
+      if (hasValue(v.acvpu)) lines.push(`ACVPU: ${v.acvpu} = ${scoreACVPU(v.acvpu)} poeng`);
+      if (news != null) lines.push(`Total NEWS = ${news}`);
+      return lines;
+    }
+
+    function renderNewsBreakdown(v) {
+      const container = el("outNewsBreakdown");
+      container.innerHTML = "";
+
+      if (!v) {
+        container.innerHTML = `<div class="item muted">Ingen måling lagt inn ennå.</div>`;
+        return;
+      }
+
+      newsBreakdownLines(v, calcNEWS(v)).forEach(line => {
+        const div = document.createElement("div");
+        div.className = "item";
+        div.textContent = line;
+        container.appendChild(div);
+      });
+    }
+
+    function renderUrgencyExplanation(news, v, gcs) {
+      const container = el("outUrgencyExplanation");
+      container.innerHTML = "";
+
+      const text = urgencyExplanation(news, v, gcs);
+      const div = document.createElement("div");
+      div.className = `item${news == null && !hasReducedConsciousness(v, gcs) ? " muted" : ""}`;
+      div.textContent = text;
+      container.appendChild(div);
+    }
+
+    function renderLog() {
+      const container = el("vitalsLog");
+      if (!container) return;
+      container.innerHTML = "";
+
+      if (!vitalsLog.length) {
+        container.innerHTML = `<div class="item muted">Ingen målinger lagt inn ennå.</div>`;
+        return;
+      }
+
+      [...vitalsLog].reverse().forEach((v, index) => {
+        const gcs = calcGCS(v);
+        const news = calcNEWS(v);
+        const parts = measurementParts(v, gcs);
+
+        const div = document.createElement("div");
+        div.className = "log-entry";
+        div.innerHTML = `
+          <strong>${formatDateTime(v.tidspunkt)}${index === 0 ? " - siste registrerte måling" : ""}</strong>
+          ${parts.length ? parts.join(" | ") : "Ingen registrerte verdier"}${news != null ? ` | NEWS ${news}` : ""}
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function sectionCurrentLogParts(section) {
+      const parts = [];
+      const findings = selections[`${section}_funn`] || [];
+      const actions = selections[`${section}_tiltak`] || [];
+      const note = getValue(`${section}_fritekst`).trim();
+
+      if (findings.length) parts.push(`Funn: ${findings.join(", ")}`);
+      if (actions.length) parts.push(`Tiltak: ${actions.join(", ")}`);
+      if (note) parts.push(`Fritekst: ${note}`);
+      if (section === "D" && hasValue(getValue("fastUtfort"))) {
+        parts.push(`FAST utført: ${getValue("fastUtfort")}`);
+      }
+      if (section === "D" && selections.fast_funn.length) {
+        parts.push(`FAST-funn: ${selections.fast_funn.join(", ")}`);
+      }
+      if (section === "E" && hasValue(getValue("garSelv"))) {
+        parts.push(`Går selv: ${getValue("garSelv")}`);
+      }
+
+      return parts;
+    }
+
+    function renderSectionLog(section, containerId, emptyText) {
+      const container = el(containerId);
+      if (!container) return;
+      container.innerHTML = "";
+
+      const rows = [];
+      const currentParts = sectionCurrentLogParts(section);
+      if (currentParts.length && hasValue(sectionEvaluatedAt[section])) {
+        rows.push({
+          tidspunkt: sectionEvaluatedAt[section],
+          latest: true,
+          label: " - sist vurdert",
+          parts: currentParts
+        });
+      }
+
+      [...vitalsLog]
+        .reverse()
+        .map((v, index) => {
+          const gcs = calcGCS(v);
+          return {
+            tidspunkt: v.tidspunkt,
+            latest: !rows.length && index === 0,
+            label: index === 0 ? " - siste registrerte måling" : "",
+            parts: sectionMeasurementParts(v, section, gcs)
+          };
+        })
+        .filter(row => row.parts.length)
+        .forEach(row => rows.push(row));
+
+      if (!rows.length) {
+        container.innerHTML = `<div class="item muted">${emptyText}</div>`;
+        return;
+      }
+
+      rows.forEach(row => {
+        const div = document.createElement("div");
+        div.className = "log-entry";
+        div.innerHTML = `
+          <strong>${formatDateTime(row.tidspunkt)}${row.label || ""}</strong>
+          ${row.parts.join(" | ")}
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function joinOrDash(values) {
+      return values.length ? values.join(", ") : "Ingen registrerte funn";
+    }
+
+    function setList(containerId, values, emptyText) {
+      const container = el(containerId);
+      container.innerHTML = "";
+
+      if (!values || !values.length) {
+        container.innerHTML = `<div class="item muted">${emptyText}</div>`;
+        return;
+      }
+
+      values.forEach(value => {
+        const div = document.createElement("div");
+        div.className = "item";
+        div.textContent = value;
+        container.appendChild(div);
+      });
+    }
+
+    function sectionFromChipId(id) {
+      if (id === "fast_funn") return "D";
+      if (/^[ABCDE]_(funn|tiltak)$/.test(id)) return id.charAt(0);
+      return "";
+    }
+
+    function sectionFromFieldId(id) {
+      if (/^[ABCDE]_fritekst$/.test(id)) return id.charAt(0);
+      if (["rf", "spo2", "o2tilskudd"].includes(id)) return "B";
+      if (["puls", "sysbt", "diabt"].includes(id)) return "C";
+      if (["acvpu", "blodsukker", "gcs_eye", "gcs_verbal", "gcs_motor", "fastUtfort"].includes(id)) return "D";
+      if (["temp", "smerte", "garSelv"].includes(id)) return "E";
+      return "";
+    }
+
+    function markSectionEvaluated(section, timestamp = nowLocalValue()) {
+      if (!section) return;
+      sectionEvaluatedAt[section] = timestamp;
+    }
+
+    function sectionHasContent(section) {
+      const findings = selections[`${section}_funn`] || [];
+      const actions = selections[`${section}_tiltak`] || [];
+      const note = section === "A" || section === "B" || section === "C" || section === "D" || section === "E"
+        ? getValue(`${section}_fritekst`).trim()
+        : "";
+
+      if (findings.length || actions.length || note) return true;
+
+      const v = latestVitals();
+      if (!v) return false;
+
+      if (section === "B") return [v.rf, v.spo2, v.o2tilskudd].some(hasValue);
+      if (section === "C") return [v.puls, v.sysbt, v.diabt].some(hasValue);
+      if (section === "D") return [v.acvpu, v.blodsukker, v.gcsEye, v.gcsVerbal, v.gcsMotor, getValue("fastUtfort")].some(hasValue) || selections.fast_funn.length > 0;
+      if (section === "E") return [v.temp, v.smerte, getValue("garSelv")].some(hasValue);
+      return false;
+    }
+
+    function updateSectionStatuses() {
+      ["A", "B", "C", "D", "E"].forEach(section => {
+        const node = el(`${section}_status`);
+        if (!node) return;
+        const done = sectionHasContent(section);
+        node.className = `section-status ${done ? "done" : "pending"}`;
+        const time = done && hasValue(sectionEvaluatedAt[section]) ? formatDateTime(sectionEvaluatedAt[section]) : "";
+        node.innerHTML = done
+          ? `<span><span class="section-status-label">Vurdert</span><span class="section-status-time">${time}</span></span>`
+          : `<span><span class="section-status-label">Ikke vurdert</span></span>`;
+      });
+    }
+
+    function addLineIfValue(lines, label, value) {
+      if (hasValue(value)) lines.push(`${label}: ${value}`);
+    }
+
+    function addSectionLineIfAny(lines, label, values) {
+      if (values && values.length) lines.push(`${label}: ${values.join(", ")}`);
+    }
+
+    function renderSummary(v, gcs, news, criticals) {
+      const container = el("summary");
+
+      if (!v) {
+        container.className = "item summary-box muted";
+        container.textContent = "Legg inn funn og minst én måling for å få oppsummering.";
+        return;
+      }
+
+      const lines = [];
+
+      addLineIfValue(lines, "Case-nummer", el("caseNummer").value || "Ikke angitt");
+      addLineIfValue(lines, "Tidspunkt", hasValue(el("tidspunkt").value) ? formatDateTime(el("tidspunkt").value) : "");
+      addLineIfValue(lines, "Kategori", el("kategori").value);
+      addLineIfValue(lines, "Kjønn", el("kjonn").value);
+      addLineIfValue(lines, "Fødselsår", el("fodselsaar").value);
+      addLineIfValue(lines, "Alder", el("alder").value);
+      addLineIfValue(lines, "Situasjon", el("situasjon").value);
+
+      if (lines.length) lines.push("");
+      addSectionLineIfAny(lines, "A - Airways", selections.A_funn);
+      addSectionLineIfAny(lines, "A - Tiltak", selections.A_tiltak);
+      addLineIfValue(lines, "A - Fritekst", el("A_fritekst").value.trim());
+
+      addSectionLineIfAny(lines, "B - Breathing", selections.B_funn);
+      addSectionLineIfAny(lines, "B - Tiltak", selections.B_tiltak);
+      addLineIfValue(lines, "B - Fritekst", el("B_fritekst").value.trim());
+
+      const bVitals = sectionMeasurementParts(v, "B", gcs);
+      if (bVitals.length) lines.push(`B - Vitalparametere: ${bVitals.join(", ")}`);
+
+      addSectionLineIfAny(lines, "C - Circulation", selections.C_funn);
+      addSectionLineIfAny(lines, "C - Tiltak", selections.C_tiltak);
+      addLineIfValue(lines, "C - Fritekst", el("C_fritekst").value.trim());
+
+      const cVitals = sectionMeasurementParts(v, "C", gcs);
+      if (cVitals.length) lines.push(`C - Vitalparametere: ${cVitals.join(", ")}`);
+
+      addSectionLineIfAny(lines, "D - Disability", selections.D_funn);
+      addSectionLineIfAny(lines, "D - Tiltak", selections.D_tiltak);
+      addLineIfValue(lines, "D - Fritekst", el("D_fritekst").value.trim());
+
+      const dVitals = sectionMeasurementParts(v, "D", gcs);
+      if (dVitals.length) lines.push(`D - Vitalparametere: ${dVitals.join(", ")}`);
+
+      addLineIfValue(lines, "FAST-undersøkelse utført", el("fastUtfort").value);
+      if (selections.fast_funn.length) {
+        lines.push(`FAST-funn: ${selections.fast_funn.join(", ")}`);
+      }
+
+      addSectionLineIfAny(lines, "E - Exposure", selections.E_funn);
+      addSectionLineIfAny(lines, "E - Tiltak", selections.E_tiltak);
+      addLineIfValue(lines, "E - Fritekst", el("E_fritekst").value.trim());
+      addLineIfValue(lines, "Går selv", el("garSelv").value);
+
+      const eVitals = sectionMeasurementParts(v, "E", gcs);
+      if (eVitals.length) lines.push(`E - Vitalparametere: ${eVitals.join(", ")}`);
+
+      if (news != null) {
+        lines.push("");
+        lines.push(`NEWS: ${news}`);
+        lines.push("");
+        lines.push("NEWS-detaljer:");
+        lines.push(...newsBreakdownLines(v, news));
+        lines.push("");
+        lines.push("Forklaring hastegrad:");
+        lines.push(urgencyExplanation(news, v, gcs));
+      }
+
+      lines.push("");
+      lines.push(`Kritiske funn: ${criticals.length ? criticals.join(", ") : "Ingen"}`);
+
+      lines.push("");
+      lines.push("Varsling og respons:");
+      lines.push(`- 113 varslet: ${el("varslet113").value}`);
+      if (hasValue(el("tid113").value)) lines.push(`- Tidspunkt 113 varslet: ${formatDateTime(el("tid113").value)}`);
+      if (hasValue(el("tidAmbulanse").value)) lines.push(`- Tidspunkt ambulanse ankom: ${formatDateTime(el("tidAmbulanse").value)}`);
+      lines.push(`- Vaktleder varslet: ${el("varsletVaktleder").value}`);
+      if (hasValue(el("tidVaktleder").value)) lines.push(`- Tidspunkt vaktleder varslet: ${formatDateTime(el("tidVaktleder").value)}`);
+
+      container.className = "item summary-box";
+      container.textContent = lines.join("\n").trim();
+    }
+
+    function updateVarslingVisibility() {
+      const show113 = el("varslet113").value === "Ja";
+      const showVaktleder = el("varsletVaktleder").value === "Ja";
+      el("wrapTid113").classList.toggle("hidden", !show113);
+      el("wrapTidAmbulanse").classList.toggle("hidden", !show113);
+      el("wrapTidVaktleder").classList.toggle("hidden", !showVaktleder);
+    }
+
+    function updateOutputs() {
+      clearAppError();
+      calculateAge();
+      updateVarslingVisibility();
+      updateSectionStatuses();
+
+      const v = latestVitals();
+      const gcs = calcGCS(v);
+      const news = calcNEWS(v);
+      const u = urgency(news, v, gcs);
+      const criticals = criticalFindings(v, gcs);
+      const conds = conditions(v, news, gcs);
+      const actions = actionsFrom();
+
+      el("outGCS").textContent = gcs == null ? "-" : gcs;
+      el("outNEWS").textContent = news == null ? "-" : news;
+      el("outHastegrad").innerHTML = u.text === "-" ? "-" : `<span class="pill ${u.cls}">${u.text}</span>`;
+      el("outLastMeasurement").textContent = v ? formatDateTime(v.tidspunkt) : "-";
+
+      renderNewsBreakdown(v);
+      renderUrgencyExplanation(news, v, gcs);
+      setList("outCritical", criticals, "Ingen kritiske funn.");
+      setList("outConditions", conds, "Ingen tydelige mistanker ennå.");
+      setList("outActions", actions, "Ingen tiltak registrert ennå.");
+      renderSummary(v, gcs, news, criticals);
+      renderSectionLog("A", "A_measurements", "Ingen A-vurdering registrert ennå.");
+      renderSectionLog("B", "B_measurements", "Ingen B-målinger lagt inn ennå.");
+      renderSectionLog("C", "C_measurements", "Ingen C-målinger lagt inn ennå.");
+      renderSectionLog("D", "D_measurements", "Ingen D-vurdering eller D-målinger lagt inn ennå.");
+      renderSectionLog("E", "E_measurements", "Ingen E-vurdering eller E-målinger lagt inn ennå.");
+    }
+
+    function clearMeasurementFields() {
+      MEASUREMENT_FIELD_IDS.forEach(id => setValue(id, ""));
+    }
+
+    function readNotes() {
+      return {
+        A: getValue("A_fritekst").trim(),
+        B: getValue("B_fritekst").trim(),
+        C: getValue("C_fritekst").trim(),
+        D: getValue("D_fritekst").trim(),
+        E: getValue("E_fritekst").trim()
+      };
+    }
+
+    function readVarsling() {
+      return {
+        varslet113: getValue("varslet113"),
+        tid113: getValue("tid113"),
+        tidAmbulanse: getValue("tidAmbulanse"),
+        varsletVaktleder: getValue("varsletVaktleder"),
+        tidVaktleder: getValue("tidVaktleder")
+      };
+    }
+
+    function generateNextCaseNumber() {
+      return `Pasient ${savedCases.length + 1}`;
+    }
+
+    function hasActiveRegistrationData() {
+      if (Object.values(selections).some(values => values.length)) return true;
+      if (Object.values(sectionEvaluatedAt).some(hasValue)) return true;
+      if (vitalsLog.length) return true;
+
+      return [
+        "kategori", "kjonn", "fodselsaar", "situasjon", "A_fritekst", "B_fritekst", "C_fritekst", "D_fritekst", "E_fritekst",
+        "garSelv", "fastUtfort", "varslet113", "tid113", "tidAmbulanse", "varsletVaktleder", "tidVaktleder"
+      ].some(id => {
+        const value = getValue(id);
+        return hasValue(value) && value !== "Nei";
+      });
+    }
+
+    function startNewPatient() {
+      resetAll();
+      setValue("caseNummer", generateNextCaseNumber());
+      setValue("tidspunkt", nowLocalValue);
+      updateOutputs();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function hasMeasurementData(entry) {
+      return [
+        entry.rf, entry.spo2, entry.o2tilskudd, entry.puls, entry.sysbt, entry.diabt, entry.temp, entry.blodsukker, entry.smerte,
+        entry.acvpu, entry.gcsEye, entry.gcsVerbal, entry.gcsMotor
+      ].some(value => hasValue(value));
+    }
+
+    function createCurrentCaseObject() {
+      const v = latestVitals();
+      const gcs = calcGCS(v);
+      const news = calcNEWS(v);
+      const criticals = criticalFindings(v, gcs);
+      const conds = conditions(v, news, gcs);
+      const actions = actionsFrom();
+      return {
+        id: crypto.randomUUID ? crypto.randomUUID() : String(Date.now()),
+        createdBy: currentUser || "",
+        caseNummer: getValue("caseNummer"),
+        tidspunkt: getValue("tidspunkt"),
+        kategori: getValue("kategori"),
+        kjonn: getValue("kjonn"),
+        fodselsaar: getValue("fodselsaar"),
+        alder: getValue("alder"),
+        garSelv: getValue("garSelv"),
+        situasjon: getValue("situasjon"),
+        notes: readNotes(),
+        fastUtfort: getValue("fastUtfort"),
+        fastFunn: [...selections.fast_funn],
+        acvpu: v?.acvpu || "",
+        blodsukker: hasValue(v?.blodsukker) ? String(v.blodsukker) : "",
+        smerte: hasValue(v?.smerte) ? String(v.smerte) : "",
+        selections: JSON.parse(JSON.stringify(selections)),
+        vitalsLog: JSON.parse(JSON.stringify(vitalsLog)),
+        latestVitals: v ? JSON.parse(JSON.stringify(v)) : null,
+        gcs,
+        news,
+        hastegrad: urgency(news, v, gcs).text,
+        criticals,
+        conditions: conds,
+        actions,
+        varsling: readVarsling(),
+        summary: el("summary").textContent
+      };
+    }
+
+    function persistSavedCases() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(savedCases));
+    }
+
+    function saveCaseToStorage(caseObj) {
+      savedCases.push(caseObj);
+      persistSavedCases();
+      renderCases();
+    }
+
+    function loadKnownUsers() {
+      try {
+        return JSON.parse(localStorage.getItem(USERS_KEY) || "[]");
+      } catch {
+        return [];
+      }
+    }
+
+    function saveKnownUsers() {
+      localStorage.setItem(USERS_KEY, JSON.stringify(knownUsers));
+    }
+
+    function loadSavedCases() {
+      try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+      } catch {
+        return [];
+      }
+    }
+
+    function loadCurrentUser() {
+      try {
+        return normalizeUserName(localStorage.getItem(CURRENT_USER_KEY) || "");
+      } catch {
+        return "";
+      }
+    }
+
+    function ensureKnownUser(name) {
+      const normalized = normalizeUserName(name);
+      if (!normalized) return;
+      if (!knownUsers.includes(normalized)) {
+        knownUsers.push(normalized);
+        knownUsers.sort((a, b) => a.localeCompare(b, "no"));
+        saveKnownUsers();
+      }
+    }
+
+    function updateCurrentUserBadge() {
+      el("currentUserBadge").textContent = `Innlogget: ${currentUser || "-"}`;
+    }
+
+    function updateEnterButtonState() {
+      const canEnter =
+        el("acknowledgeNoPii").checked &&
+        el("acknowledgeClinicalLimit").checked &&
+        normalizeUserName(el("loginName").value).length > 0;
+      el("enterAppBtn").disabled = !canEnter;
+    }
+
+    function goToAccessPage() {
+      el("accessPage").classList.remove("hidden");
+      el("topbar").classList.add("hidden");
+      el("assessmentPage").classList.add("hidden");
+      el("caseLogPage").classList.add("hidden");
+    }
+
+    function loginUser(name) {
+      currentUser = normalizeUserName(name);
+      ensureKnownUser(currentUser);
+      localStorage.setItem(CURRENT_USER_KEY, currentUser);
+      updateCurrentUserBadge();
+    }
+
+    function allUserNames() {
+      return [...new Set([...knownUsers, ...savedCases.map(item => item.createdBy).filter(Boolean)])]
+        .sort((a, b) => a.localeCompare(b, "no"));
+    }
+
+    function sortCasesNewestFirst(cases) {
+      return [...cases].sort((a, b) => {
+        const aTime = a.tidspunkt ? new Date(a.tidspunkt).getTime() : 0;
+        const bTime = b.tidspunkt ? new Date(b.tidspunkt).getTime() : 0;
+        return bTime - aTime;
+      });
+    }
+
+    function deleteUser(name) {
+      const normalized = normalizeUserName(name);
+      if (!normalized) return;
+
+      const password = window.prompt("Skriv inn passord for å slette bruker:");
+      if (password === null) return;
+      if (password !== "admin") {
+        window.alert("Feil passord.");
+        return;
+      }
+
+      const caseCount = savedCases.filter(item => item.createdBy === normalized).length;
+      const confirmed = window.confirm(
+        `Slette brukeren "${normalized}" og ${caseCount} tilhørende case fra denne nettleseren?`
+      );
+      if (!confirmed) return;
+
+      knownUsers = knownUsers.filter(item => item !== normalized);
+      savedCases = savedCases.filter(item => item.createdBy !== normalized);
+      saveKnownUsers();
+      persistSavedCases();
+
+      if (currentUser === normalized) {
+        currentUser = "";
+        localStorage.removeItem(CURRENT_USER_KEY);
+        updateCurrentUserBadge();
+        el("loginName").value = "";
+        el("acknowledgeNoPii").checked = false;
+        el("acknowledgeClinicalLimit").checked = false;
+        updateEnterButtonState();
+        goToAccessPage();
+      }
+
+      el("selectedCaseSummary").className = "item summary-box muted";
+      el("selectedCaseSummary").textContent = "Velg et case fra listen over.";
+      renderCases();
+    }
+
+    function renderUserOverview() {
+      const container = el("userOverview");
+      container.innerHTML = "";
+
+      const names = allUserNames();
+      if (!names.length) {
+        container.innerHTML = `<div class="item muted">Ingen brukere registrert ennå.</div>`;
+        return;
+      }
+
+      names.forEach(name => {
+        const count = savedCases.filter(item => item.createdBy === name).length;
+        const div = document.createElement("div");
+        div.className = "item item-row";
+        div.innerHTML = `
+          <div>
+            <strong>${name}</strong>
+            <div class="meta">${count} case</div>
+          </div>
+        `;
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "secondary";
+        button.textContent = "Slett bruker";
+        button.addEventListener("click", () => deleteUser(name));
+        div.appendChild(button);
+        container.appendChild(div);
+      });
+    }
+
+    function populateUserFilter() {
+      const filter = el("caseUserFilter");
+      const currentValue = filter.value;
+      const names = allUserNames();
+
+      filter.innerHTML = `<option value="">Alle brukere</option>`;
+      names.forEach(name => {
+        const option = document.createElement("option");
+        option.value = name;
+        option.textContent = name;
+        filter.appendChild(option);
+      });
+
+      if (names.includes(currentValue)) filter.value = currentValue;
+    }
+
+    function renderCases() {
+      const container = el("caseList");
+      container.innerHTML = "";
+      populateUserFilter();
+      renderUserOverview();
+
+      const selectedUser = el("caseUserFilter").value;
+      const visibleCases = selectedUser ? savedCases.filter(item => item.createdBy === selectedUser) : savedCases;
+
+      if (!visibleCases.length) {
+        container.innerHTML = `<div class="item muted">Ingen case registrert ennå.</div>`;
+        return;
+      }
+
+      sortCasesNewestFirst(visibleCases).forEach(caseItem => {
+        const card = document.createElement("div");
+        card.className = "item case-card";
+        card.innerHTML = `
+          <div class="case-head">
+            <strong>${caseItem.caseNummer || "Uten case-nummer"}</strong>
+            <span class="pill ${caseItem.hastegrad === "Kritisk hastegrad" ? "kritisk" : caseItem.hastegrad === "Høy hastegrad" ? "hoy" : caseItem.hastegrad === "Moderat hastegrad" ? "moderat" : "lav"}">${caseItem.hastegrad || "Ukjent"}</span>
+          </div>
+          <div class="case-meta">
+            <span>Registrert av: ${caseItem.createdBy || "-"}</span>
+            <span>Tidspunkt: ${caseItem.tidspunkt ? formatDateTime(caseItem.tidspunkt) : "-"}</span>
+            <span>Kategori: ${caseItem.kategori || "-"}</span>
+            <span>Situasjon: ${caseItem.situasjon || "-"}</span>
+            <span>NEWS: ${dash(caseItem.news)}</span>
+            <span>Siste måling: ${caseItem.latestVitals?.tidspunkt ? formatDateTime(caseItem.latestVitals.tidspunkt) : "-"}</span>
+            <span>FAST: ${caseItem.fastUtfort === "Ja" ? (caseItem.fastFunn && caseItem.fastFunn.length ? caseItem.fastFunn.join(", ") : "Utført uten funn registrert") : (caseItem.fastUtfort || "-")}</span>
+            <span>113 varslet: ${caseItem.varsling?.varslet113 || "Nei"}</span>
+          </div>
+        `;
+        card.addEventListener("click", () => {
+          el("selectedCaseSummary").className = "item summary-box";
+          el("selectedCaseSummary").textContent = caseItem.summary || "Ingen oppsummering lagret.";
+        });
+        container.appendChild(card);
+      });
+    }
+
+    function resetAll() {
+      Object.keys(selections).forEach(key => { selections[key] = []; });
+      Object.keys(sectionEvaluatedAt).forEach(key => { sectionEvaluatedAt[key] = ""; });
+      document.querySelectorAll(".chip.active").forEach(chip => chip.classList.remove("active"));
+      vitalsLog.length = 0;
+      Object.entries(RESET_FIELD_DEFAULTS).forEach(([id, value]) => setValue(id, value));
+
+      clearMeasurementFields();
+      updateOutputs();
+    }
+
+    function goToAssessment() {
+      if (!currentUser) {
+        goToAccessPage();
+        return;
+      }
+      el("accessPage").classList.add("hidden");
+      el("topbar").classList.remove("hidden");
+      el("assessmentPage").classList.remove("hidden");
+      el("caseLogPage").classList.add("hidden");
+    }
+
+    function goToCaseLog() {
+      if (!currentUser) {
+        goToAccessPage();
+        return;
+      }
+      el("accessPage").classList.add("hidden");
+      el("topbar").classList.remove("hidden");
+      el("assessmentPage").classList.add("hidden");
+      el("caseLogPage").classList.remove("hidden");
+      renderCases();
+    }
+
+    function setupEventListeners() {
+      el("acknowledgeNoPii").addEventListener("change", withUiGuard(updateEnterButtonState));
+      el("acknowledgeClinicalLimit").addEventListener("change", withUiGuard(updateEnterButtonState));
+      el("loginName").addEventListener("input", withUiGuard(updateEnterButtonState));
+      el("enterAppBtn").addEventListener("click", withUiGuard(() => {
+        const name = normalizeUserName(el("loginName").value);
+        if (!el("acknowledgeNoPii").checked || !el("acknowledgeClinicalLimit").checked || !name) return;
+        loginUser(name);
+        goToAssessment();
+        startNewPatient();
+      }, "Kunne ikke åpne journalføringen."));
+
+      el("fodselsaar").addEventListener("input", withUiGuard(updateOutputs));
+      el("setCurrentTimeBtn").addEventListener("click", withUiGuard(() => {
+        setValue("tidspunkt", nowLocalValue);
+        updateOutputs();
+      }));
+      el("varslet113").addEventListener("change", withUiGuard(updateOutputs));
+      el("varsletVaktleder").addEventListener("change", withUiGuard(updateOutputs));
+      el("caseUserFilter").addEventListener("change", withUiGuard(renderCases));
+
+      CASE_TEXT_FIELD_IDS.forEach(id => {
+        el(id).addEventListener("input", withUiGuard(() => {
+          const section = sectionFromFieldId(id);
+          if (section) markSectionEvaluated(section);
+          updateOutputs();
+        }));
+      });
+
+      CASE_SELECT_FIELD_IDS.forEach(id => {
+        el(id).addEventListener("change", withUiGuard(() => {
+          const section = sectionFromFieldId(id);
+          if (section) markSectionEvaluated(section);
+          updateOutputs();
+        }));
+      });
+
+      el("goAssessmentBtn").addEventListener("click", withUiGuard(goToAssessment));
+      el("goCaseLogBtn").addEventListener("click", withUiGuard(goToCaseLog));
+      el("switchUserBtn").addEventListener("click", withUiGuard(() => {
+        currentUser = "";
+        localStorage.removeItem(CURRENT_USER_KEY);
+        updateCurrentUserBadge();
+        el("loginName").value = "";
+        el("acknowledgeNoPii").checked = false;
+        el("acknowledgeClinicalLimit").checked = false;
+        updateEnterButtonState();
+        goToAccessPage();
+      }));
+
+      const saveCurrentMeasurement = () => {
+        const entry = {
+          tidspunkt: nowLocalValue(),
+          rf: num("rf"),
+          spo2: num("spo2"),
+          o2tilskudd: el("o2tilskudd").value || null,
+          puls: num("puls"),
+          sysbt: num("sysbt"),
+          diabt: num("diabt"),
+          temp: num("temp"),
+          blodsukker: num("blodsukker"),
+          smerte: num("smerte"),
+          acvpu: el("acvpu").value || null,
+          gcsEye: num("gcs_eye"),
+          gcsVerbal: num("gcs_verbal"),
+          gcsMotor: num("gcs_motor")
+        };
+
+        if (!hasMeasurementData(entry)) {
+          alert("Velg minst én verdi i vitalparametere før du lagrer måling.");
+          return;
+        }
+
+        if ([entry.rf, entry.spo2, entry.o2tilskudd].some(hasValue)) markSectionEvaluated("B", entry.tidspunkt);
+        if ([entry.puls, entry.sysbt, entry.diabt].some(hasValue)) markSectionEvaluated("C", entry.tidspunkt);
+        if ([entry.acvpu, entry.blodsukker, entry.gcsEye, entry.gcsVerbal, entry.gcsMotor].some(hasValue)) markSectionEvaluated("D", entry.tidspunkt);
+        if ([entry.temp, entry.smerte].some(hasValue)) markSectionEvaluated("E", entry.tidspunkt);
+
+        vitalsLog.push(entry);
+        updateOutputs();
+        clearMeasurementFields();
+      };
+
+      document.querySelectorAll(".save-measurement-btn").forEach(button => {
+        button.addEventListener("click", withUiGuard(saveCurrentMeasurement, "Kunne ikke lagre målingen."));
+      });
+
+      el("saveCaseBtn").addEventListener("click", withUiGuard(() => {
+        if (!latestVitals()) {
+          alert("Du må legge inn minst én måling før du lagrer case.");
+          return;
+        }
+
+        saveCaseToStorage(createCurrentCaseObject());
+        alert("Pasient registrert og lagret.");
+        startNewPatient();
+      }, "Kunne ikke lagre case."));
+
+      el("newPatientBtn").addEventListener("click", withUiGuard(() => {
+        if (hasActiveRegistrationData() && !confirm("Aktiv registrering er ikke lagret. Vil du starte ny pasient og forkaste det som ligger inne?")) {
+          return;
+        }
+        startNewPatient();
+      }));
+
+      el("copySummaryBtn").addEventListener("click", withUiGuard(async () => {
+        try {
+          await navigator.clipboard.writeText(el("summary").textContent);
+          alert("Oppsummering kopiert.");
+        } catch {
+          alert("Kunne ikke kopiere automatisk. Marker teksten manuelt.");
+        }
+      }, "Kunne ikke kopiere oppsummeringen."));
+
+      el("scrollTopBtn").addEventListener("click", withUiGuard(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }));
+
+      el("resetAllBtn").addEventListener("click", withUiGuard(() => {
+        if (!hasActiveRegistrationData() || confirm("Vil du forkaste aktiv registrering?")) {
+          startNewPatient();
+        }
+      }));
+    }
+
+    function init() {
+      clearAppError();
+      initChips();
+      initSelectOptions();
+      setupEventListeners();
+      currentUser = loadCurrentUser();
+
+      setValue("tidspunkt", nowLocalValue);
+      updateVarslingVisibility();
+      updateCurrentUserBadge();
+      updateEnterButtonState();
+      renderCases();
+      updateOutputs();
+      setValue("caseNummer", generateNextCaseNumber());
+      goToAccessPage();
+    }
+
+    init();
+  </script>
+</body>
+</html>
+
+
+
+
